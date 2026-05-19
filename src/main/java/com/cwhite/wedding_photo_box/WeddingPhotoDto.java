@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class WeddingPhotoDto {
-    Long id;
+    private Long id;
 
-    String sentBy;
+    private String sentBy;
 
-    byte[] photoData;
+    private byte[] photoData;
 }

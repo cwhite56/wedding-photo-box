@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,9 +20,10 @@ import lombok.NoArgsConstructor;
 public class WeddingPhotoEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "author_id_seq")
-    Long id;
+    private Long id;
 
-    String sentBy;
+    private String sentBy;
 
-    byte[] photoData;
+    @Lob
+    private byte[] photoData;
 }
