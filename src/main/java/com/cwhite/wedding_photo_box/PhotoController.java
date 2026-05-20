@@ -6,11 +6,13 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 @RestController
+@RequestMapping("/photos")
 public class PhotoController {
 
     private PhotoService photoService;
@@ -22,7 +24,7 @@ public class PhotoController {
     }
     
     @PostMapping(value = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) 
-    public ResponseEntity<WeddingPhotoDto> uploadPhoto(@RequestPart("data") WeddingPhotoDto weddingPhotoDto, @RequestPart("file")MultipartFile multipartFile) throws IOException {
+    public ResponseEntity<WeddingPhotoDto> uploadPhoto(@RequestPart("data") WeddingPhotoDto weddingPhotoDto, @RequestPart("image")MultipartFile multipartFile) throws IOException {
         
         WeddingPhotoEntity weddingPhotoEntity = photoMapper.mapFrom(weddingPhotoDto);
         WeddingPhotoEntity savedPhoto = photoService.save(weddingPhotoEntity, multipartFile);
