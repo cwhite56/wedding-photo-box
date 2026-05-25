@@ -26,6 +26,8 @@ public class WeddingPhotoEntity {
 
     private String sentBy;
 
+    // Needed for testing. H2 does not work with Lob
+    //@jakarta.persistence.Column(columnDefinition = "BYTEA")
     @Lob
     private byte[] photoData;
 }

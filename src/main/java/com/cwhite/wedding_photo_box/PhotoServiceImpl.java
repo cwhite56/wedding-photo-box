@@ -1,6 +1,10 @@
 package com.cwhite.wedding_photo_box;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Optional;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -22,6 +26,24 @@ public class PhotoServiceImpl implements PhotoService{
         }
         
         return photoRepository.save(weddingPhotoEntity);
+    }
+
+    @Override
+    public Optional<WeddingPhotoEntity> findOne(Long id) {
+        return photoRepository.findById(id);
+    }
+
+    @Override
+    public void delete(Long id) {
+        photoRepository.deleteById(id);
+    }
+
+    @Override
+    public List<WeddingPhotoEntity> findAll() {
+        return StreamSupport.stream(photoRepository
+        .findAll()
+        .spliterator(), false)
+        .collect(Collectors.toList());
     }
     
 }
