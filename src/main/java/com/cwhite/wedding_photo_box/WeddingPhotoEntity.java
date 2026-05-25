@@ -1,5 +1,6 @@
 package com.cwhite.wedding_photo_box;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -26,8 +27,7 @@ public class WeddingPhotoEntity {
 
     private String sentBy;
 
-    // Needed for testing. H2 does not work with Lob
-    //@jakarta.persistence.Column(columnDefinition = "BYTEA")
     @Lob
+    @Column(columnDefinition = "bytea")
     private byte[] photoData;
 }
