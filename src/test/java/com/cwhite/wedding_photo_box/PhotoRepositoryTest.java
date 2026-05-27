@@ -34,7 +34,7 @@ public class PhotoRepositoryTest {
         WeddingPhotoEntity testPhoto = 
             WeddingPhotoEntity.builder()
             .sentBy("Cameron")
-            .photoData(MockPhotoUtil.createMockPhoto())
+            .filePath("/home/youruser/wedding-photos/")
             .build();
         
         underTest.save(testPhoto);
@@ -49,21 +49,21 @@ public class PhotoRepositoryTest {
         WeddingPhotoEntity testPhotoA = 
             WeddingPhotoEntity.builder()
             .sentBy("Cameron")
-            .photoData(MockPhotoUtil.createMockPhoto())
+            .filePath("/home/youruser/wedding-photosA/")
             .build();
         underTest.save(testPhotoA);
 
         WeddingPhotoEntity testPhotoB = 
             WeddingPhotoEntity.builder()
             .sentBy("Carli")
-            .photoData(MockPhotoUtil.createMockPhoto())
+            .filePath("/home/youruser/wedding-photosB/")
             .build();
         underTest.save(testPhotoB);
 
         WeddingPhotoEntity testPhotoC = 
             WeddingPhotoEntity.builder()
             .sentBy("Machael")
-            .photoData(MockPhotoUtil.createMockPhoto())
+            .filePath("/home/youruser/wedding-photosC/")
             .build();
         underTest.save(testPhotoC);
 
@@ -77,7 +77,7 @@ public class PhotoRepositoryTest {
         WeddingPhotoEntity testPhoto = 
             WeddingPhotoEntity.builder()
             .sentBy("Cameron")
-            .photoData(MockPhotoUtil.createMockPhoto())
+            .filePath("/home/youruser/wedding-photos/")
             .build();
         
         underTest.save(testPhoto);

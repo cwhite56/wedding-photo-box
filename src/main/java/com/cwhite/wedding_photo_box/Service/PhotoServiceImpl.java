@@ -1,5 +1,6 @@
 package com.cwhite.wedding_photo_box.Service;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
@@ -24,9 +25,17 @@ public class PhotoServiceImpl implements PhotoService{
     @Override
     public WeddingPhotoEntity save(WeddingPhotoEntity weddingPhotoEntity, MultipartFile multipartFile) throws IOException {
 
+        String uploadDirectory = "/home/cwhite56/Pictures/";
+        String filename = multipartFile.getOriginalFilename();
+        String destination = uploadDirectory + filename;
+                        
         if (multipartFile != null && !multipartFile.isEmpty()) {
-        weddingPhotoEntity.setPhotoData(multipartFile.getBytes());
+            weddingPhotoEntity.setFilePath(destination);
         }
+        
+        File saveFileTo = new File(destination);
+        
+        multipartFile.transferTo(saveFileTo);
         
         
         return photoRepository.save(weddingPhotoEntity);

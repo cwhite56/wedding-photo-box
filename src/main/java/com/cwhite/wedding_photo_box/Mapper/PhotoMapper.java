@@ -12,8 +12,6 @@ public class PhotoMapper implements Mapper<WeddingPhotoEntity, WeddingPhotoDto>{
     private ModelMapper modelMapper;
 
     public PhotoMapper(ModelMapper modelMapper) {
-        modelMapper.typeMap(WeddingPhotoDto.class, WeddingPhotoEntity.class)
-            .addMappings(mapper -> mapper.skip(WeddingPhotoEntity::setPhotoData));
         this.modelMapper = modelMapper;
     }
 

@@ -14,5 +14,5 @@ public class WeddingPhotoDto {
 
     private String sentBy;
 
-    private byte[] photoData;
+    private String filePath;
 }
