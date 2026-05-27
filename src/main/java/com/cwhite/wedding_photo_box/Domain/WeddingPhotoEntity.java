@@ -1,4 +1,4 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Domain;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

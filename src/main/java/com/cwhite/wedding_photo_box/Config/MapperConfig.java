@@ -1,4 +1,4 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

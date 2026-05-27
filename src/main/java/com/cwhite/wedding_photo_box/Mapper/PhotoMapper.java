@@ -1,7 +1,10 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Mapper;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
+
+import com.cwhite.wedding_photo_box.Domain.WeddingPhotoDto;
+import com.cwhite.wedding_photo_box.Domain.WeddingPhotoEntity;
 
 @Component
 public class PhotoMapper implements Mapper<WeddingPhotoEntity, WeddingPhotoDto>{

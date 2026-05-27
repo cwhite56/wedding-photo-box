@@ -1,4 +1,4 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

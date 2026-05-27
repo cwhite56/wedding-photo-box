@@ -1,4 +1,4 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Mapper;
 
 public interface Mapper<A, B> {
     public B mapTo(A a);

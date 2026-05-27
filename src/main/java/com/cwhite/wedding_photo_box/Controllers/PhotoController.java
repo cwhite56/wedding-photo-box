@@ -1,4 +1,4 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Controllers;
 
 import java.io.IOException;
 
@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.cwhite.wedding_photo_box.Domain.WeddingPhotoDto;
+import com.cwhite.wedding_photo_box.Domain.WeddingPhotoEntity;
+import com.cwhite.wedding_photo_box.Mapper.PhotoMapper;
+import com.cwhite.wedding_photo_box.Service.PhotoService;
 
 import java.util.List;
 import java.util.Optional;

@@ -10,6 +10,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
+import com.cwhite.wedding_photo_box.Domain.WeddingPhotoEntity;
+import com.cwhite.wedding_photo_box.Repository.PhotoRepository;
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest

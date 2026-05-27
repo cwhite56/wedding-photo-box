@@ -1,4 +1,4 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Service;
 
 import java.io.IOException;
 import java.util.List;
@@ -8,6 +8,9 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import com.cwhite.wedding_photo_box.Domain.WeddingPhotoEntity;
+import com.cwhite.wedding_photo_box.Repository.PhotoRepository;
 
 @Service
 public class PhotoServiceImpl implements PhotoService{
