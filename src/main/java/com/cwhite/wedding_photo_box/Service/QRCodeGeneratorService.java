@@ -1,4 +1,4 @@
-package com.cwhite.wedding_photo_box;
+package com.cwhite.wedding_photo_box.Service;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
