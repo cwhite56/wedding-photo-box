@@ -39,6 +39,7 @@ public class PhotoController {
     public ResponseEntity<WeddingPhotoDto> uploadPhoto(@RequestPart("data") WeddingPhotoDto weddingPhotoDto, @RequestPart("image")MultipartFile multipartFile) throws IOException {
         
         WeddingPhotoEntity weddingPhotoEntity = photoMapper.mapFrom(weddingPhotoDto);
+        
         WeddingPhotoEntity savedPhoto = photoService.save(weddingPhotoEntity, multipartFile);
 
         return new ResponseEntity<>(photoMapper.mapTo(savedPhoto), HttpStatus.CREATED);

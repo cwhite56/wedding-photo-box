@@ -28,6 +28,7 @@ public class PhotoServiceImpl implements PhotoService{
         weddingPhotoEntity.setPhotoData(multipartFile.getBytes());
         }
         
+        
         return photoRepository.save(weddingPhotoEntity);
     }
 

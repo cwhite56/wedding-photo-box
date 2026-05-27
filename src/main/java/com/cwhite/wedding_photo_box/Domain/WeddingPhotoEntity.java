@@ -27,7 +27,7 @@ public class WeddingPhotoEntity {
 
     private String sentBy;
 
-    @Lob
+    //@Lob
     @Column(columnDefinition = "bytea")
     private byte[] photoData;
 }
