@@ -43,13 +43,12 @@ public class S3PhotoServiceImpl implements PhotoService{
         if (multipartFile != null && !multipartFile.isEmpty()) {
             String key = UUID.randomUUID() + "_" + multipartFile.getOriginalFilename();
 
-            PutObjectRequest request = PutObjectRequest.builder()
-                    .bucket(bucketName)
-                    .key(key)
-                    .contentType(multipartFile.getContentType())
-                    .build();
+           PutObjectRequest request = PutObjectRequest.builder()
+                .key(key)
+                .bucket(bucketName)
+                .build();
 
-            s3Client.putObject(request, RequestBody.fromBytes(multipartFile.getBytes()));
+           s3Client.putObject(request, RequestBody.fromBytes(multipartFile.getBytes()));
 
             weddingPhotoEntity.setFilePath(key);
         }
