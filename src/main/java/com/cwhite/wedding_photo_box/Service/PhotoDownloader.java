@@ -35,7 +35,7 @@ public class PhotoDownloader {
 
     private static final String BUCKET_NAME = "amzn-s3-wedding-photo-box-2027";
 
-    private static final String ZIP_PATH = "home/cwhite56/Pictures/";
+    private static final String ZIP_PATH = "/home/cwhite56/Pictures/";
 
     private static final String ZIP_FILE = "/home/cwhite56/Pictures/wedding-photos.zip";
 
@@ -48,24 +48,26 @@ public class PhotoDownloader {
     }
 
     private static void zipFiles(List<String> fileList) throws IOException {
-        FileOutputStream os = new FileOutputStream(ZIP_FILE);
-        ZipOutputStream zs = new ZipOutputStream(os);
+        try (FileOutputStream fos = new FileOutputStream(ZIP_FILE);
+            ZipOutputStream zos = new ZipOutputStream(fos)) {
 
-        byte[] buffer = new byte[1024];
+            byte[] buffer = new byte[1024];
 
-        for (String file : fileList) {
-            File fileToZip = new File(ZIP_PATH + file);
-            
-            FileInputStream is = new FileInputStream(fileToZip);
+            for (String file : fileList) {
+                File fileToZip = new File(ZIP_PATH + file);
+                
+                try (FileInputStream fis = new FileInputStream(fileToZip)) {
 
-            zs.putNextEntry(new ZipEntry(fileToZip.getName()));
+                    zos.putNextEntry(new ZipEntry(fileToZip.getName()));
 
-            int length;
+                    int length;
 
-            while((length = is.read(buffer)) > 0) {
-                zs.write(buffer, 0, length);
+                    while((length = fis.read(buffer)) > 0) {
+                        zos.write(buffer, 0, length);
+                    }
+                    zos.closeEntry();
+                }
             }
-            zs.closeEntry();
         }
     }
 
