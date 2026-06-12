@@ -21,13 +21,11 @@ import software.amazon.awssdk.services.s3.model.GetObjectRequest;
 import software.amazon.awssdk.services.s3.model.GetObjectResponse;
 
 public class PhotoDownloader {
-    private static final String DB_URL = "jdbc:postgresql://localhost:5432/postgres";
-
-    private static final String DB_USER = "postgres";
-
-    private static final String DB_PASSWORD = "password";
-
-    private static final String BUCKET_NAME = "amzn-s3-wedding-photo-box-2027";
+    private static final String DB_URL = System.getenv("DB_URL");
+    private static final String DB_USER = System.getenv("DB_USER");
+    private static final String DB_PASSWORD = System.getenv("DB_PASSWORD");
+    private static final String BUCKET_NAME = System.getenv("AWS_BUCKET");
+    private static final Region REGION = Region.of(System.getenv("AWS_REGION"));
 
     private static final String ZIP_PATH = "/home/cwhite56/Pictures/";
 
@@ -43,7 +41,7 @@ public class PhotoDownloader {
     private static void downloadFromS3(List<String> urlList) throws IOException {
 
         S3Client s3Client = S3Client.builder()
-        .region(Region.US_EAST_2)
+        .region(REGION)
         .credentialsProvider(DefaultCredentialsProvider.create())
         .build();
 

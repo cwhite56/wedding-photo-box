@@ -8,7 +8,6 @@ import java.net.Socket;
 
 import javax.imageio.ImageIO;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.google.zxing.BarcodeFormat;
@@ -20,8 +19,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 @Service
 public class QRCodeGeneratorService {
 
-    @Value("${server.port:8080}")
-    private String port;
+    private String port = "8080";
 
     public void generation() throws WriterException, IOException {
         String localHost = getRealLocalIP();
