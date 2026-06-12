@@ -1,6 +1,8 @@
 package com.cwhite.wedding_photo_box.Controllers;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -62,6 +64,19 @@ public class PhotoController {
         return photos.stream()
                 .map(photoMapper::mapTo)
                 .collect(Collectors.toList());
+    }
+
+    @GetMapping(value = "/qrcode")
+    public ResponseEntity<byte[]> getQRCode() throws IOException {
+        File qrCode = new File("QRcode.png");
+        
+        if (!qrCode.exists()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        byte[] imageBytes = Files.readAllBytes(qrCode.toPath());
+
+        return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(imageBytes);
     }
 
     @DeleteMapping(value = "/delete/{id}")
