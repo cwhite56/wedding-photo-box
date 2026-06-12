@@ -43,67 +43,42 @@ public class PhotoDownloader {
         List<String> urlList = createUrlList();
         System.out.println(urlList);
         System.out.println("Found " + urlList.size() + " photos in database.");
-        List<String> fileList = downloadFromS3(urlList);
-        zipFiles(fileList);
+        downloadFromS3(urlList);
     }
 
-    private static void zipFiles(List<String> fileList) throws IOException {
-        try (FileOutputStream fos = new FileOutputStream(ZIP_FILE);
-            ZipOutputStream zos = new ZipOutputStream(fos)) {
-
-            byte[] buffer = new byte[1024];
-
-            for (String file : fileList) {
-                File fileToZip = new File(ZIP_PATH + file);
-                
-                try (FileInputStream fis = new FileInputStream(fileToZip)) {
-
-                    zos.putNextEntry(new ZipEntry(fileToZip.getName()));
-
-                    int length;
-
-                    while((length = fis.read(buffer)) > 0) {
-                        zos.write(buffer, 0, length);
-                    }
-                    zos.closeEntry();
-                }
-            }
-        }
-    }
-
-    private static List<String> downloadFromS3(List<String> urlList) throws IOException {
-
-        List<String> fileNames = new ArrayList<>();
+    private static void downloadFromS3(List<String> urlList) throws IOException {
 
         S3Client s3Client = S3Client.builder()
         .region(Region.US_EAST_2)
         .credentialsProvider(DefaultCredentialsProvider.create())
         .build();
 
-        for (int i = 0; i< urlList.size(); i++) {
-            GetObjectRequest getObjectRequest = GetObjectRequest.builder()
-                .bucket(BUCKET_NAME)
-                .key(urlList.get(i))
-                .build();
+        try(FileOutputStream fos = new FileOutputStream(ZIP_FILE);
+            ZipOutputStream zos = new ZipOutputStream(fos)) {
+                
+            byte[] buffer = new byte[1024];
 
-            ResponseInputStream<GetObjectResponse> responseInputStream = s3Client.getObject(getObjectRequest);
-            GetObjectResponse getObjectResponse = responseInputStream.response();
+            for (int i = 0; i< urlList.size(); i++) {
+                GetObjectRequest getObjectRequest = GetObjectRequest.builder()
+                    .bucket(BUCKET_NAME)
+                    .key(urlList.get(i))
+                    .build();
 
-            String key = getObjectRequest.key();
-            try {
-                Files.copy(responseInputStream, Paths.get("/home/cwhite56/Pictures/" + key));
-            }
+                File fileToZip = new File(ZIP_PATH + getObjectRequest.key());
 
-            catch (FileAlreadyExistsException e) {
-                //e.printStackTrace();
-            }
+                try(ResponseInputStream<GetObjectResponse> responseInputStream = s3Client.getObject(getObjectRequest)) {
 
-            finally {
-                fileNames.add(key);
-            }
-            
-        }
-        return fileNames;
+                    zos.putNextEntry(new ZipEntry(fileToZip.getName()));
+
+                    int length;
+                    
+                    while ((length = responseInputStream.read(buffer)) > 0) {
+                        zos.write(buffer, 0, length);
+                    }
+                    zos.closeEntry();
+                }      
+            }   
+        }   
     }
 
     private static List<String> createUrlList() throws SQLException {
