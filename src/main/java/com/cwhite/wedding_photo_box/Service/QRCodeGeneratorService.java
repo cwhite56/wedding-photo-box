@@ -33,6 +33,15 @@ public class QRCodeGeneratorService {
 
     }
 
+    public void generation(String url) throws WriterException, IOException {
+        System.out.println("QR Code URL: " + url);
+        QRCodeWriter writer = new QRCodeWriter();
+        BitMatrix matrix = writer.encode(url, BarcodeFormat.QR_CODE, 200, 200);
+        BufferedImage QRcode = MatrixToImageWriter.toBufferedImage(matrix);
+        File outputFile = new File("QRcode.png");
+        ImageIO.write(QRcode, "png", outputFile);
+    }
+
     private String getRealLocalIP() throws IOException {
         try (Socket socket = new Socket()) {
             // connect to any external address — doesn't actually send data
