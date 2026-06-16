@@ -1,5 +1,6 @@
 package com.cwhite.wedding_photo_box;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,6 +13,10 @@ public class WeddingPhotoBoxApplication implements CommandLineRunner{
 
 	private QRCodeGeneratorService qrCodeGeneratorService;
 
+	@Value("${app.url}")
+	String url;
+
+
 	public WeddingPhotoBoxApplication(QRCodeGeneratorService qrCodeGeneratorService) {
 		this.qrCodeGeneratorService = qrCodeGeneratorService;
 	}
@@ -22,7 +27,7 @@ public class WeddingPhotoBoxApplication implements CommandLineRunner{
 
 	@Override
 	public void run(String... args) throws Exception {
-		qrCodeGeneratorService.generation();
+		qrCodeGeneratorService.generation(url);
 		
 
 	}
