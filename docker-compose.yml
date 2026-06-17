@@ -22,7 +22,7 @@ services:
     environment:
       POSTGRES_DB: weddingphotodb
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: newpassword
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
