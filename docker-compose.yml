@@ -1,10 +1,36 @@
+version: '3.8'
 services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_PROFILES_ACTIVE: local
+      DB_URL: jdbc:postgresql://db:5432/weddingphotodb
+      DB_USER: postgres
+      DB_PASSWORD: newpassword
+      APP_URL: http://localhost:8080
+      upload.directory: /uploads/
+    volumes:
+      - photo_uploads:/uploads
+    depends_on:
+      db:
+        condition: service_healthy
 
   db:
-  
-    image: postgres
-    ports:
-      - "5432:5432"
-    restart: always
+    image: postgres:16
     environment:
-      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: weddingphotodb
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: newpassword
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  postgres_data:
+  photo_uploads:
